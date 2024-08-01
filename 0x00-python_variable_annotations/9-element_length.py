@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from typing import List, Tuple, Sequence, Iterable
 """
 This module defines a function that takes an iterable of sequences
 and returns
@@ -17,6 +16,7 @@ Returns:
     List[Tuple[Sequence, int]]: A list of tuples where each tuple contains a
     sequence from the input iterable and its length.
 """
+from typing import List, Tuple, Sequence, Iterable
 
 
 def element_length(lst: Iterable[Sequence]) -> List[Tuple[Sequence, int]]:
