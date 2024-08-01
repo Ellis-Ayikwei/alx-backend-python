@@ -14,4 +14,7 @@ def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
     :param sequence: A sequence of elements.
     :return: The first element of the sequence if it exists, otherwise None.
     """
-    return lst[0] if lst else None
+    if lst:
+        return lst[0]
+    else:
+        return None
