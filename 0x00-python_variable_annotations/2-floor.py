@@ -15,6 +15,5 @@ def floor(n: float) -> int:
     Returns:
         int: The floor of the float number.
     """
-    # Use the math.floor function to round down the float number to the nearest integer.
-    # Convert the result to an integer using the int function.
+   
     return int(math.floor(n))
