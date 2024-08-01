@@ -10,16 +10,13 @@ from typing import Tuple, List, Union
 def to_kv(k: str, value: Union[int, float]) -> Tuple[str, float]:
     """
     This function takes a string key and a value that can be an int or a float.
-    It returns a tuple where the first element is the key and the
-    second element
+    It returns a tuple where the first element is the key and the second element
     is the square of the value.
 
     :param key: A string key.
     :param value: An int or float value.
     :return: A tuple with the key and the square of the value.
     """
-    # Square the value
-    v = value ** 2
+    v = value * value
 
-    # Return a tuple with the key and the squared value
-    return (k, v)
+    return k, v
