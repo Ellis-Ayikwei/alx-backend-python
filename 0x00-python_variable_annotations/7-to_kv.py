@@ -22,4 +22,4 @@ def to_kv(key: str, value: Union[int, float]) -> Tuple[str, float]:
     squared_value = value ** 2
 
     # Return a tuple with the key and the squared value
-    return (key, squared_value)
+    return tuple(key, squared_value)
