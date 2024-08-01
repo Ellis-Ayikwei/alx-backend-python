@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-
-
 from typing import List, Tuple, Sequence, Iterable
 """
 This module defines a function that takes an iterable of sequences and returns
