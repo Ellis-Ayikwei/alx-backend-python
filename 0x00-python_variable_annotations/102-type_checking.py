@@ -2,10 +2,10 @@
 """
 This module defines a function that zooms in on an input list or tuple.
 """
-from typing import Tuple, List, Union
+from typing import Tuple, List, Union, Optional
 
 
-def zoom_array(lst: Union[Tuple, List], factor: int = 2) -> Union[Tuple, List]:
+def zoom_array(lst: Tuple, factor: int = 2) -> List:
     """
     Zooms in on a list or tuple.
     """
@@ -13,10 +13,10 @@ def zoom_array(lst: Union[Tuple, List], factor: int = 2) -> Union[Tuple, List]:
         item for item in lst
         for i in range(factor)
     ]
-    return zoomed_in
+    return list(zoomed_in)
 
 
-array = [12, 72, 91]
+array = (2, 72, 91)
 
 zoom_2x = zoom_array(array)
 
