@@ -4,8 +4,9 @@ from typing import TypeVar, Dict, Union, Optional, Any, Mapping
 This module defines a function that safely retrieves a value from a dictionary,
 returning a default value if the key is not found.
 """
-T = TypeVar('T')
 
+
+T = TypeVar('T')
 
 def safely_get_value(dct: Mapping[Any, Any], key: Any,
                      default: Optional[T] = None) -> Union[Any, T]:
