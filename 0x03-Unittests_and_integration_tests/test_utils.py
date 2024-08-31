@@ -77,17 +77,16 @@ class TestGetJson(unittest.TestCase):
 class TestMemoize(unittest.TestCase):
     """Test memoize decorator"""
     def setUp(self) -> None:
-        self.memoize = utils.memoize
+        self.memoize: Callable[[Callable], Callable] = utils.memoize
 
     def test_memoize(self) -> None:
         """Test memoize decorator"""
         class TestClass:
-
             def a_method(self) -> int:
                 """Return 42"""
                 return 42
 
-            @memoize
+            @self.memoize
             def a_property(self) -> Callable[[], int]:
                 """
                 A property that memoizes the result of a_method.
