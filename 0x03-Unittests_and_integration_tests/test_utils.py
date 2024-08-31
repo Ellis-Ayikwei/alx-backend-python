@@ -77,7 +77,7 @@ class TestGetJson(unittest.TestCase):
 class TestMemoize(unittest.TestCase):
     """Test memoize decorator"""
     def setUp(self) -> None:
-        self.memoize: Callable[[Callable], Callable] = utils.memoize
+        self.memoize: Callable[[Callable], Callable] = memoize
 
     def test_memoize(self) -> None:
         """Test memoize decorator"""
