@@ -38,7 +38,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({}, ("a",)),
         ({"a": 1}, ("a", "b")),
     ])
-    def test_access_nested_map_raises_key_error_on_invalid_key(
+    def test_access_nested_map_exception(
         self, input_map: Mapping, input_path: Sequence
     ) -> None:
         """Test that a KeyError is raised when a key does not exist in the
