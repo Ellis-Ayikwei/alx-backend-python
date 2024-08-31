@@ -36,12 +36,11 @@ class TestAccessNestedMap(unittest.TestCase):
                          expected_value)
 
     @parameterized.expand([
-        ({}, ("a",)),
-        ({"a": 1}, ("a", "b")),
-    ])
-    def test_access_nested_map_exception(
-        self, nested_map: Mapping, path: Sequence
-    ) -> None:
+    ({}, ("a",)),
+    ({"a": 1}, ("a", "b")),
+])
+    def test_access_nested_map_exception(self, nested_map: Mapping,
+                                         path: Sequence) -> None:
         """Test that a KeyError is raised when a key does not exist in the
         nested map
         """
@@ -49,9 +48,10 @@ class TestAccessNestedMap(unittest.TestCase):
             self.access_nested_map(nested_map, path)
 
         # Verify the exception message
-        expected_message = f"KeyError: '{nested_map[-1]}'"
+        expected_message = f"'{path[-1]}'"
         print(f"the exception.........///................////.... {str(cm.exception)}")
         self.assertEqual(str(cm.exception), expected_message)
+
 
     def tearDown(self) -> None:
         del self.access_nested_map
