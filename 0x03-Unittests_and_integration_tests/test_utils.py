@@ -14,6 +14,7 @@ from typing import (
 access_nested_map = utils.access_nested_map
 get_json = utils.get_json
 
+
 class TestAccessNestedMap(unittest.TestCase):
     """Test access_nested_map function
     """
@@ -29,14 +30,6 @@ class TestAccessNestedMap(unittest.TestCase):
                                input_path: Sequence,
                                expected_value: Any) -> None:
         """Test access_nested_map function
-
-        Args:
-            input_map (Mapping[str, Any]): A dictionary with nested values
-            input_path (Sequence[str]): A sequence of keys used to access a value
-            expected_value (Any): The expected outcome of the function
-
-        Returns:
-            None
         """
         self.assertEqual(self.access_nested_map(input_map, input_path),
                          expected_value)
@@ -50,21 +43,14 @@ class TestAccessNestedMap(unittest.TestCase):
     ) -> None:
         """Test that a KeyError is raised when a key does not exist in the
         nested map
-
-        Args:
-            input_map (Mapping[str, Any]): A dictionary with nested values
-            input_path (Sequence[str]): A sequence of keys used to access a value
-
-        Returns:
-            None
         """
         with self.assertRaises(KeyError):
             self.access_nested_map(input_map, input_path)
 
-
     def tearDown(self) -> None:
         del self.access_nested_map
         return super().tearDown()
+
 
 class TestGetJson(unittest.TestCase):
     """Test get_json function"""
@@ -81,7 +67,6 @@ class TestGetJson(unittest.TestCase):
             mock_get.return_value.json.return_value = expected_payload
             payload = self.get_json(url)
             self.assertEqual(payload, expected_payload)
-
 
 
 if __name__ == '__main__':
