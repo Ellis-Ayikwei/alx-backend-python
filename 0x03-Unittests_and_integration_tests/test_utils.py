@@ -76,16 +76,17 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """Test memoize decorator"""
+
     def test_memoize(self):
         """Test memoize decorator"""
         class TestClass:
             """ Test Class for wrapping with memoize """
-             
+
             def a_method(self):
                 return 42
 
             @memoize
-            def a_property(self) :
+            def a_property(self):
                 return self.a_method()
 
         with patch.object(TestClass, 'a_method') as mock_a_method:
