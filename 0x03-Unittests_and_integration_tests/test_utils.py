@@ -44,7 +44,7 @@ class TestAccessNestedMap(unittest.TestCase):
         """Test that a KeyError is raised when a key does not exist in the
         nested map
         """
-        with self.assertRaises(KeyError):
+        with self.assertRaises(KeyError, msg=input_path):
             self.access_nested_map(input_map, input_path)
 
     def tearDown(self) -> None:
