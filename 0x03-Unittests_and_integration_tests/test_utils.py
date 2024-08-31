@@ -36,7 +36,6 @@ class TestAccessNestedMap(unittest.TestCase):
         self.assertEqual(self.access_nested_map(nested_map, path),
                          expected_outcome)
 
-
     @parameterized.expand([
         # Test with empty dict
         ({}, ("a",)),
@@ -44,7 +43,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b"))
     ])
     def test_access_nested_map_exception(self, nested_map: Mapping,
-                               path: Sequence) -> None:
+                                         path: Sequence) -> None:
         """Test that a KeyError is raised when a key does not exist in the
         nested map
 
