@@ -76,13 +76,11 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """Test memoize decorator"""
-    
     def setUp(self) -> None:
         self.memoize: Callable[[Callable], Callable] = memoize
 
     def test_memoize(self) -> None:
         """Test memoize decorator"""
-
         class TestClass:
             def a_method(self) -> int:
                 """Return 42"""
