@@ -39,8 +39,8 @@ class TestAccessNestedMap(unittest.TestCase):
     ({}, ("a",)),
     ({"a": 1}, ("a", "b")),
 ])
-    def test_access_nested_map_exception(self, nested_map: Mapping,
-                                         path: Sequence) -> None:
+    def test_access_nested_map_exception(self, nested_map: Mapping[str, Any],
+                                         path: Sequence[str]) -> None:
         """Test that a KeyError is raised when a key does not exist in the
         nested map
         """
@@ -49,7 +49,6 @@ class TestAccessNestedMap(unittest.TestCase):
 
         # Verify the exception message
         expected_message = f"'{path[-1]}'"
-        print(f"the exception.........///................////.... {str(cm.exception)}")
         self.assertEqual(str(cm.exception), expected_message)
 
 
