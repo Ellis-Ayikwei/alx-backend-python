@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Defines tests for the utils module"""
 import unittest
 from parameterized import parameterized
 import utils
