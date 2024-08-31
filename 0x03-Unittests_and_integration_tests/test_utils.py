@@ -84,10 +84,16 @@ class TestMemoize(unittest.TestCase):
         class TestClass:
 
             def a_method(self) -> int:
+                """Return 42"""
                 return 42
 
             @memoize
-            def a_property(self) -> callable:
+            def a_property(self) -> Callable[[], int]:
+                """
+                A property that memoizes the result of a_method.
+                Returns:
+                    A callable that returns an int.
+                """
                 return self.a_method()
 
         instance = TestClass()
