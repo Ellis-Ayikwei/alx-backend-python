@@ -106,7 +106,7 @@ class TestMemoize(unittest.TestCase):
         """
         Tear down the test: delete the memoize property
         """
-        
+
         del self.memoize
         return super().tearDown()
 
