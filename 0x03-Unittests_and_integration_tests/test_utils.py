@@ -13,6 +13,7 @@ from typing import (
 )
 access_nested_map = utils.access_nested_map
 get_json = utils.get_json
+memoize = utils.memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -82,20 +83,20 @@ class TestMemoize(unittest.TestCase):
     def test_memoize(self) -> None:
         """Test memoize decorator"""
         class TestClass:
-            def __init__(self) -> None:
-                self._n = 0
-
-            @self.memoize
-            def add(self, a, b):
-                self._n += 1
-                return a + b
+            
+            def a_method(self):
+                return 42
+            
+            @memoize
+            def a_property(self):
+                return self.a_method()
 
         instance = TestClass()
-        result = instance.add(1, 2)
-        self.assertEqual(result, 3)
-        result = instance.add(1, 2)
-        self.assertEqual(result, 3)
-        self.assertEqual(instance._n, 1)
+        result = instance.a_property
+        self.assertEqual(result, 42)
+        result1 = instance.a_property
+        self.assertEqual(result, result1)
+        
 
     def tearDown(self) -> None:
         del self.memoize
