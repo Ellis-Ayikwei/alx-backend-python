@@ -85,7 +85,6 @@ class TestMemoize(unittest.TestCase):
         """
         class TestClass:
             """ Test Class for wrapping with memoize """
-            
 
             def a_method(self):
                 return 42
