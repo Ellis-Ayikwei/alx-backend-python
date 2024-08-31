@@ -89,15 +89,17 @@ class TestMemoize(unittest.TestCase):
                 A property that memoizes the result of a_method.
                 """
                 return self.a_method()
-            
+
         with patch.object(TestClass, 'a_method') as mock_a_method:
             instance = TestClass()
-            m_a_m = mock_a_method.return_value = 42
+            mock_a_method.return_value = 42
+
             result = instance.a_property
-            self.assertEqual(m_a_m, 42)
             self.assertEqual(result, 42)
+
             result1 = instance.a_property
             self.assertEqual(result, result1)
+
             mock_a_method.assert_called_once()
 
 
