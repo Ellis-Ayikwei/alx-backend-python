@@ -23,15 +23,16 @@ class TestAccessNestedMap(unittest.TestCase):
 
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
-        ({"a": {"b": 2}}, ("a",), 2),
+        ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
-    def test_access_nested_map(self, input_map: Mapping,
-                               input_path: Sequence,
+    def test_access_nested_map(self,
+                               nested_map: Mapping[str, Any],
+                               path: Sequence[str],
                                expected_value: Any) -> None:
         """Test access_nested_map function
         """
-        self.assertEqual(self.access_nested_map(input_map, input_path),
+        self.assertEqual(self.access_nested_map(nested_map, path),
                          expected_value)
 
     @parameterized.expand([
@@ -39,13 +40,18 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b")),
     ])
     def test_access_nested_map_exception(
-        self, input_map: Mapping, input_path: Sequence
+        self, nested_map: Mapping, path: Sequence
     ) -> None:
         """Test that a KeyError is raised when a key does not exist in the
         nested map
         """
-        with self.assertRaises(KeyError, msg=input_path):
-            self.access_nested_map(input_map, input_path)
+        with self.assertRaises(KeyError) as cm:
+            self.access_nested_map(nested_map, path)
+
+        # Verify the exception message
+        expected_message = f"KeyError: '{nested_map[-1]}'"
+        print(f"the exception.........///................////.... {str(cm.exception)}")
+        self.assertEqual(str(cm.exception), expected_message)
 
     def tearDown(self) -> None:
         del self.access_nested_map
