@@ -74,5 +74,32 @@ class TestGetJson(unittest.TestCase):
             self.assertEqual(payload, expected_payload)
 
 
+class TestMemoize(unittest.TestCase):
+    """Test memoize decorator"""
+    def setUp(self) -> None:
+        self.memoize = utils.memoize
+
+    def test_memoize(self) -> None:
+        """Test memoize decorator"""
+        class TestClass:
+            def __init__(self) -> None:
+                self._n = 0
+
+            @self.memoize
+            def add(self, a, b):
+                self._n += 1
+                return a + b
+
+        instance = TestClass()
+        result = instance.add(1, 2)
+        self.assertEqual(result, 3)
+        result = instance.add(1, 2)
+        self.assertEqual(result, 3)
+        self.assertEqual(instance._n, 1)
+
+    def tearDown(self) -> None:
+        del self.memoize
+        return super().tearDown()
+
 if __name__ == '__main__':
     unittest.main()
