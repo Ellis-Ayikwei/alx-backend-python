@@ -78,7 +78,7 @@ class TestMemoize(unittest.TestCase):
     """Test memoize decorator"""
 
     def test_memoize(self):
-        """ 
+        """
         Tests the function when calling a_property twice,
         the correct result is returned but a_method is only
         called once using assert_called_once
