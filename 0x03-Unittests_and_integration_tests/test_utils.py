@@ -87,7 +87,7 @@ class TestMemoize(unittest.TestCase):
                 return 42
 
             @self.memoize
-            def a_property(self) -> Callable[[], int]:
+            def a_property(self) -> int:
                 """
                 A property that memoizes the result of a_method.
                 """
