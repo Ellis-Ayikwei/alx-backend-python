@@ -1,6 +1,8 @@
 import unittest
 from parameterized import parameterized
-from utils import access_nested_map
+import utils
+from unittest.mock import patch, PropertyMock
+import requests
 from typing import (
     Mapping,
     Sequence,
@@ -8,54 +10,77 @@ from typing import (
     Dict,
     Callable,
 )
-
+access_nested_map = utils.access_nested_map
+get_json = utils.get_json
 
 class TestAccessNestedMap(unittest.TestCase):
     """Test access_nested_map function
     """
-    def setUp(self):
+    def setUp(self) -> None:
         self.access_nested_map = access_nested_map
 
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), 2),
         ({"a": {"b": 2}}, ("a", "b"), 2)
-        ])
-    def test_access_nested_map(self, nested_map: Mapping,
-                               path: Sequence, expected_outcome: Any) -> None:
+    ])
+    def test_access_nested_map(self, input_map: Mapping[str, Any],
+                               input_path: Sequence[str],
+                               expected_value: Any) -> None:
         """Test access_nested_map function
 
         Args:
-            nested_map (Mapping[str, Any]): A dictionary with nested values
-            path (Sequence[str]): A sequence of keys used to access a value
-            expected_outcome (Any): The expected outcome of the function
+            input_map (Mapping[str, Any]): A dictionary with nested values
+            input_path (Sequence[str]): A sequence of keys used to access a value
+            expected_value (Any): The expected outcome of the function
 
         Returns:
             None
         """
-        self.assertEqual(self.access_nested_map(nested_map, path),
-                         expected_outcome)
+        self.assertEqual(self.access_nested_map(input_map, input_path),
+                         expected_value)
 
     @parameterized.expand([
-        # Test with empty dict
         ({}, ("a",)),
-        # Test with a single key
-        ({"a": 1}, ("a", "b"))
+        ({"a": 1}, ("a", "b")),
     ])
-    def test_access_nested_map_exception(self, nested_map: Mapping,
-                                         path: Sequence) -> None:
+    def test_access_nested_map_raises_key_error_on_invalid_key(
+        self, input_map: Mapping, input_path: Sequence
+    ) -> None:
         """Test that a KeyError is raised when a key does not exist in the
         nested map
 
         Args:
-            nested_map (Mapping[str, Any]): A dictionary with nested values
-            path (Sequence[str]): A sequence of keys used to access a value
+            input_map (Mapping[str, Any]): A dictionary with nested values
+            input_path (Sequence[str]): A sequence of keys used to access a value
 
         Returns:
             None
         """
         with self.assertRaises(KeyError):
-            self.access_nested_map(nested_map, path)
+            self.access_nested_map(input_map, input_path)
+
+
+    def tearDown(self) -> None:
+        del self.access_nested_map
+        return super().tearDown()
+
+class TestGetJson(unittest.TestCase):
+    """Test get_json function"""
+    def setUp(self) -> None:
+        self.get_json = get_json
+
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False}),
+    ])
+    def test_get_json(self, url: str, expected_payload: Dict) -> None:
+        """Test get_json function"""
+        with patch('requests.get') as mock_get:
+            mock_get.return_value.json.return_value = expected_payload
+            payload = self.get_json(url)
+            self.assertEqual(payload, expected_payload)
+
 
 
 if __name__ == '__main__':
