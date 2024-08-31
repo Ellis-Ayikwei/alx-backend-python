@@ -76,12 +76,6 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """Test memoize decorator"""
-    def setUp(self) -> None:
-        """Set up the test: store the memoize decorator in an instance
-        variable for later use.
-        """
-        self.memoize: Callable[[Callable], Callable] = memoize
-
     def test_memoize(self) -> None:
         """Test memoize decorator"""
         class TestClass:
@@ -89,7 +83,7 @@ class TestMemoize(unittest.TestCase):
                 """Return 42"""
                 return 42
 
-            @self.memoize
+            @memoize
             def a_property(self) -> Callable[[], int]:
                 """
                 A property that memoizes the result of a_method.
@@ -102,13 +96,6 @@ class TestMemoize(unittest.TestCase):
         result1 = instance.a_property
         self.assertEqual(result, result1)
 
-    def tearDown(self) -> None:
-        """
-        Tear down the test: delete the memoize property
-        """
-
-        del self.memoize
-        return super().tearDown()
 
 
 if __name__ == '__main__':
