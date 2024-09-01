@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Defines tests for the client module"""
+"""
+Test cases for the GithubOrgClient class.
+
+This module contains test cases for the GithubOrgClient class. It uses the
+parameterized library to run the same tests with different inputs.
+"""
 
 import unittest
 import requests
