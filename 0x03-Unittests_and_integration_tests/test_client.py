@@ -11,31 +11,23 @@ from utils import (
 )
 
 
-class TestGitHubOrgClient(unittest.TestCase):
-    """Defines a class to test the GitHUbOrgClient in the Client Module"""
-
+class TestGithubOrgClient(unittest.TestCase):
+    """Tests the `GithubOrgClient` class."""
     @parameterized.expand([
-        ('google', {'login': 'google'}),
-        ('abc', {'login': 'abc'}),
+        ("google", {'login': "google"}),
+        ("abc", {'login': "abc"}),
     ])
-    @patch('client.get_json')
-    def test_org(self, org_name: str, expected_result: Dict[str, str],
-                 mock: MagicMock) -> None:
-        """Test org method
-
-        Args:
-        org_name (str): The organization name
-        expected_result (Dict[str, str]): The expected result
-        mock (unittest.mock.MagicMock): The mock object
-
-        Returns:
-        None
-        """
-        mock.return_value = expected_result
-        org_client = GithubOrgClient(org_name)
-        org_client.org
-        mock.assert_called_once_with(
-            f"https://api.github.com/orgs/{org_name}")
+    @patch(
+        "client.get_json",
+    )
+    def test_org(self, org: str, resp: Dict, mocked_fxn: MagicMock) -> None:
+        """Tests the `org` method."""
+        mocked_fxn.return_value = MagicMock(return_value=resp)
+        gh_org_client = GithubOrgClient(org)
+        self.assertEqual(gh_org_client.org(), resp)
+        mocked_fxn.assert_called_once_with(
+            "https://api.github.com/orgs/{}".format(org)
+        )
 
 
 if __name__ == '__main__':
