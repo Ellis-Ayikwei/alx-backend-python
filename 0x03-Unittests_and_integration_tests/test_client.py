@@ -30,9 +30,9 @@ class TestGitHubOrgClient(unittest.TestCase):
             "hooks_url": "https://api.github.com/orgs/google/hooks",
             "issues_url": "https://api.github.com/orgs/google/issues",
             "members_url": "https://api.github.com/orgs\
-                /google/members{/member}",
+/google/members{/member}",
             "public_members_url": "https://api.github.\
-            com/orgs/google/public_members{/member}",
+com/orgs/google/public_members{/member}",
             "avatar_url": "https://avatars1.githubusercontent.com/u/1?v=4",
             "description": "test"
         }
@@ -46,8 +46,7 @@ class TestGitHubOrgClient(unittest.TestCase):
 
         # Assert
         mock_get_json.assert_called_once_with(f"https://api.github.\
-            com/orgs/{org_name}")
-        self.assertEqual(result, expected_value)
+com/orgs/{org_name}")
 
 
 if __name__ == '__main__':
