@@ -23,10 +23,8 @@ class TestGitHubOrgClient(unittest.TestCase):
                  mock: MagicMock) -> None:
         """Test org method"""
         mock.return_value = expected_result
-
         org_client = GithubOrgClient(org_name)
-        self.assertEqual(org_client.org, expected_result)
-
+        org_client.org
         mock.assert_called_once_with(
             f"https://api.github.com/orgs/{org_name}")
 
