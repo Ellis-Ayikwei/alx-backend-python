@@ -19,9 +19,18 @@ class TestGitHubOrgClient(unittest.TestCase):
         ('abc', {'login': 'abc'}),
     ])
     @patch('client.get_json')
-    def test_org(self, org_name: str, expected_result: Dict,
-                 mock: MagicMock) -> None:
-        """Test org method"""
+    def test_org(self, org_name: str, expected_result: Dict[str, str],
+                 mock: unittest.mock.MagicMock) -> None:
+        """Test org method
+        
+        Args:
+        org_name (str): The organization name
+        expected_result (Dict[str, str]): The expected result
+        mock (unittest.mock.MagicMock): The mock object
+        
+        Returns:
+        None
+        """
         mock.return_value = expected_result
         org_client = GithubOrgClient(org_name)
         org_client.org
