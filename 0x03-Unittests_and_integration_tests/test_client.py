@@ -18,18 +18,15 @@ class TestGitHubOrgClient(unittest.TestCase):
         ("google", {"login": "google"}),
         ("abc", {"login": "abc"}),
     ])
-    @patch(
-        "client.get_json",
-        )
-    def test_org(self, org_name: str, expected_result: Dict,
-                 mock: MagicMock) -> None:
-        """Test org method
-        """
-        mock.return_value = MagicMock(return_value=expected_result)
+    @patch("client.get_json")
+    def test_org(self, org_name: str, expected_result: Dict, mock_get_json: MagicMock) -> None:
+        """Test org method"""
+        mock_get_json.return_value = MagicMock(return_value=expected_result)
         org_client = GithubOrgClient(org_name)
         self.assertEqual(org_client.org(), expected_result)
-        mock.assert_called_once_with(
-             "https://api.github.com/orgs/{}".format(org_name))
+        mock_get_json.assert_called_once_with(
+            f"https://api.github.com/orgs/{org_name}"
+        )
 
 
 if __name__ == '__main__':
