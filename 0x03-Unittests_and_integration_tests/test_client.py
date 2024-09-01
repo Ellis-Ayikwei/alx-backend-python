@@ -14,8 +14,8 @@ class TestGitHubOrgClient(unittest.TestCase):
     """Defines a class to test the GitHUbOrgClient in the Client Module"""
 
     @parameterized.expand([
-        ("google",),
-        ("abc",),
+        ('google'),
+        ('abc')
     ])
     @patch('client.get_json')
     def test_org(self, org_name, mock):
