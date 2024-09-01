@@ -15,21 +15,13 @@ class TestGitHubOrgClient(unittest.TestCase):
     """Defines a class to test the GitHUbOrgClient in the Client Module"""
 
     @parameterized.expand([
-        ('google', {'login': 'google'}),
-        ('abc', {'login': 'abc'}),
+        ("google", {"login": "google"}),
+        ("abc", {"login": "abc"}),
     ])
-    @patch('client.get_json')
+    @patch("client.get_json",)
     def test_org(self, org_name: str, expected_result: Dict,
                  mock: MagicMock) -> None:
         """Test org method
-
-        Args:
-        org_name (str): The organization name
-        expected_result (Dict[str, str]): The expected result
-        mock (unittest.mock.MagicMock): The mock object
-
-        Returns:
-        None
         """
         mock.return_value = MagicMock(return_value=expected_result)
         org_client = GithubOrgClient(org_name)
