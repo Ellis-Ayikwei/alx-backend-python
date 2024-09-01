@@ -15,6 +15,7 @@ from client import GithubOrgClient
 from fixtures import TEST_PAYLOAD
 from requests import HTTPError
 
+
 class TestGithubOrgClient(unittest.TestCase):
     """Tests the `GithubOrgClient` class."""
 
@@ -23,16 +24,19 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", {"login": "abc"}),
     ])
     @patch("client.get_json")
-    def test_org(self, org: str, expected_result: Dict, mock_get_json: MagicMock) -> None:
+    def test_org(self, org: str,
+                 expected_result: Dict, mock_get_json: MagicMock) -> None:
         """Tests the `org` method."""
         mock_get_json.return_value = expected_result
 
         gh_org_client = GithubOrgClient(org)
         self.assertEqual(gh_org_client.org, expected_result)
-        mock_get_json.assert_called_once_with(f"https://api.github.com/orgs/{org}")
+        mock_get_json.assert_called_once_with(
+            f"https://api.github.com/orgs/{org}")
 
     def test_public_repos_url(self) -> None:
-        with mock.patch('client.GithubOrgClient.org', new_callable=PropertyMock) as mock_e:
+        with mock.patch('client.GithubOrgClient.org',
+                        new_callable=PropertyMock) as mock_e:
             resp = {"repos_url": "https://api.github.com/orgs/google/repos"}
             mock_e.return_value = resp
             myclass = GithubOrgClient("google")
@@ -42,7 +46,8 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_public_repos(self, get_json_mock: MagicMock) -> None:
         """Tests the `public_repos` method."""
         expected_repos_url = "https://api.github.com/orgs/google/repos"
-        with mock.patch("client.GithubOrgClient._public_repos_url", new_callable=PropertyMock) as public_repos_url_mock:
+        with mock.patch("client.GithubOrgClient._public_repos_url",
+                        new_callable=PropertyMock) as public_repos_url_mock:
             repos_data = []
             get_json_mock.return_value = repos_data
             public_repos_url_mock.return_value = expected_repos_url
@@ -82,7 +87,10 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         }
 
         def get_payload(url: str) -> MagicMock:
-            """Returns a Mock object with the response JSON set to the payload for the given URL."""
+            """
+            Returns a Mock object with the response JSON set to the
+            payload for the given URL.
+            """
             if url in route_payload:
                 return Mock(**{'json.return_value': route_payload[url]})
             raise HTTPError(f"Unhandled URL: {url}")
