@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Defines tests for the client module"""
+
 import unittest
 import requests
 from requests import HTTPError
