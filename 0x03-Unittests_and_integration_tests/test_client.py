@@ -80,17 +80,32 @@ class TestGithubOrgClient(unittest.TestCase):
     },
 ])
 class TestIntegrationGithubOrgClient(unittest.TestCase):
-    """Performs integration tests for the `GithubOrgClient` class."""
+    """Performs integration tests for the `GithubOrgClient` class.
+
+    The tests are parameterized to run with different payloads.
+    """
 
     @classmethod
     def setUpClass(cls) -> None:
-        """Sets up class fixtures before running tests."""
+        """Sets up class fixtures before running tests.
+
+        This method is called once before all the tests in the class are run.
+        """
         route_payload = {
             'https://api.github.com/orgs/google': cls.org_payload,
             'https://api.github.com/orgs/google/repos': cls.repos_payload,
         }
 
-        def get_payload(url):
+        def get_payload(url: str) -> Mock:
+            """Returns a Mock object with the response JSON set to the payload
+            for the given URL.
+
+            Args:
+                url (str): The URL to mock
+
+            Returns:
+                Mock: The Mock object with the response JSON set
+            """
             if url in route_payload:
                 return Mock(**{'json.return_value': route_payload[url]})
             return HTTPError
@@ -99,14 +114,22 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         cls.get_patcher.start()
 
     def test_public_repos(self) -> None:
-        """Tests the `public_repos` method."""
+        """Tests the `public_repos` method.
+
+        Verifies that the method returns the expected list of public
+        repositories.
+        """
         self.assertEqual(
             GithubOrgClient("google").public_repos(),
             self.expected_repos,
         )
 
     def test_public_repos_with_license(self) -> None:
-        """Tests the `public_repos` method with a license."""
+        """Tests the `public_repos` method with a license.
+
+        Verifies that the method returns the expected list of public
+        repositories that have the specified license.
+        """
         self.assertEqual(
             GithubOrgClient("google").public_repos(license="apache-2.0"),
             self.apache2_repos,
@@ -114,7 +137,10 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls) -> None:
-        """Removes the class fixtures after running all tests."""
+        """Removes the class fixtures after running all tests.
+
+        This method is called once after all the tests in the class are run.
+        """
         cls.get_patcher.stop()
 
 
