@@ -35,7 +35,7 @@ class TestGitHubOrgClient(unittest.TestCase):
         org_client = GithubOrgClient(org_name)
         self.assertEqual(org_client.org(), expected_result)
         mock.assert_called_once_with(
-            f"https://api.github.com/orgs/{org_name}")
+             "https://api.github.com/orgs/{}".format(org_name))
 
 
 if __name__ == '__main__':
