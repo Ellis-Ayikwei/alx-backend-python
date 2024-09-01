@@ -11,22 +11,22 @@ from utils import (
 )
 
 
-class TestGitHubOrgClient(unittest.TestCase):
-    """Defines a class to test the GitHUbOrgClient in the Client Module"""
+class TestGithubOrgClient(unittest.TestCase):
+    """Tests the `GithubOrgClient` class."""
 
     @parameterized.expand([
         ("google", {"login": "google"}),
         ("abc", {"login": "abc"}),
     ])
-    @patch("client.get_json",)
-    def test_org(self, org_name: str, expected_result: Dict, mock: MagicMock) -> None:
-        """Test org method"""
-        mock.return_value = MagicMock(return_value=expected_result)
-        org_client = GithubOrgClient(org_name)
-        self.assertEqual(org_client.org(), expected_result)
-        mock.assert_called_once_with(
-            f"https://api.github.com/orgs/{org_name}"
-        )
+    @patch("client.get_json")
+    def test_org(self, org: str, expected_result: Dict, mock_get_json: MagicMock) -> None:
+        """Tests the `org` method."""
+        mock_get_json.return_value = expected_result  # Directly return the expected result
+
+        gh_org_client = GithubOrgClient(org)
+        self.assertEqual(gh_org_client.org, expected_result)  # Make sure to access the property directly
+
+        mock_get_json.assert_called_once_with(f"https://api.github.com/orgs/{org}")
 
 
 if __name__ == '__main__':
